@@ -239,15 +239,35 @@ if ($result->num_rows > 0) {
                     $semana_id = "semana_{$ano}_{$num}_{$semana}";
                     echo '<div class="semana-imagens" id="'.$semana_id.'">';
                     foreach ($imagens_ano_mes_semana[$ano][$num][$semana] as $row) {
-                        echo '<div class="image-card">';
-                        echo '<b>Local:</b> ' . htmlspecialchars($row['local'] ?? '') . '<br>';
-
-                        echo '<img src="' . htmlspecialchars($row['imagem']) . '" alt="Imagem enviada" width="200" onclick="abrirModal(this.src)"><br>';
-                        if(isset($row['nivel'])) echo 'Nível: ' . htmlspecialchars($row['nivel']) . '<br>';
-                        echo 'Observação: ' . htmlspecialchars($row['observacao']) . '<br>';
-                        echo 'Transbordo: ' . htmlspecialchars($row['transbordo']) . '<br>';
-                        if(isset($row['data_envio'])) echo '<b>Data de envio:</b> ' . date('d/m/Y H:i:s', strtotime($row['data_envio'])) . '<br>';
-                        echo '<b>Enviado por:</b> ' . htmlspecialchars($row['nome_usuario'] ?? 'Desconhecido') . '<br>';
+                        echo '<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-bottom: 10px;">';
+                        
+                        echo '<table style="background: #e3f0fa; border-radius: 5px; min-width: 220px; margin-left: 10px; margin-bottom: 0;">';
+                        echo '<tr>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Local</th>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Nível</th>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Observação</th>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Transbordo</th>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Data de envio</th>';
+                        echo '<th style="background:#003366;color:#fff;padding:8px 12px;">Enviado por</th>';
+                        echo '</tr>';
+                        echo '<tr>';
+                        echo '<td style="padding:8px 12px;">' . htmlspecialchars($row['local'] ?? '') . '</td>';
+                        echo '<td style="padding:8px 12px;">' . (isset($row['nivel']) ? htmlspecialchars($row['nivel']) : '-') . '</td>';
+                        echo '<td style="padding:8px 12px;">' . htmlspecialchars($row['observacao']) . '</td>';
+                        echo '<td style="padding:8px 12px;">' . htmlspecialchars($row['transbordo']) . '</td>';
+                        echo '<td style="padding:8px 12px;">' . (isset($row['data_envio']) ? date('d/m/Y H:i:s', strtotime($row['data_envio'])) : '-') . '</td>';
+                        echo '<td style="padding:8px 12px;">' . htmlspecialchars($row['nome_usuario'] ?? 'Desconhecido') . '</td>';
+                        echo '</tr>';
+                        echo '</table>';
+                        echo '</div>';
+                        
+                        echo '<div style="width:100%;display:flex;justify-content:center;">';
+                        echo '<table style="background: #e3f0fa; border-radius: 5px; width: 60%; margin-top: 5px; margin-bottom: 30px;">';
+                        echo '<tr><th style="background:#003366;color:#fff;padding:8px 12px;">Evidências</th></tr>';
+                        echo '<tr><td style="text-align:center;padding:8px 12px;">';
+                        echo '<img src="' . htmlspecialchars($row['imagem']) . '" alt="Imagem enviada" width="200" onclick="abrirModal(this.src)" style="border-radius:4px;cursor:pointer;box-shadow:0 0 10px #1A237E;">';
+                        echo '</td></tr>';
+                        echo '</table>';
                         echo '</div>';
                     }
                     echo '</div>';
